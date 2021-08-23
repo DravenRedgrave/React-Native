@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet,SafeAreaView, View,ImageBackground,FlatList } from 'react-native';
+import { StyleSheet,SafeAreaView, View,ImageBackground,FlatList,Text } from 'react-native';
 import Form from '../components/Form';
 import Header from '../components/Header';
 import TodoItem from '../components/Todoitem';
@@ -8,9 +8,6 @@ export default function Todo() {
 
 
   const [todoItems,setTodoItems] = React.useState([
-    {id:1,text:'React Native 1'},
-    {id:2,text:'React Native 2'},
-    {id:3,text:'React Native 3'},
   ])
 
 
@@ -19,6 +16,13 @@ export default function Todo() {
       ...todoItems,
       {...newItem}
     ])
+  }
+
+
+  const deleteTodo = (id) =>{
+    setTodoItems((newList)=>{
+      return newList.filter(todoItems => id != todoItems.id)
+    })
   }
 
   return (
@@ -31,12 +35,19 @@ export default function Todo() {
             <Form
               addTodo={addTodo}
             />
+
+            {
+              todoItems.length
+              ? <Text>Всего: [{todoItems.length}]</Text>
+              :null
+            }
          <FlatList
           data={todoItems}
           keyExtractor={ item => item.id}
           renderItem={ ({item}) =>(
             <TodoItem
               item={item}
+              deleteTodo={deleteTodo}
             />
           )}
          />

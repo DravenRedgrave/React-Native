@@ -2,13 +2,13 @@ import React from 'react';
 import {TouchableOpacity,Text,StyleSheet} from 'react-native';
 
 
-const  TodoItem =({item}) => {
+const  TodoItem =({item,deleteTodo}) => {
     return (
         <TouchableOpacity style={styles.todo}>
-            <Text style={styles.text}>
+            <Text style={styles.text} onLongPress={()=> deleteTodo(item.id)}>
                {item.text}
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> deleteTodo(item.id)}>
                 <Text>
                     &#128465;
                 </Text>
